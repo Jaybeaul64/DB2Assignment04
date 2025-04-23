@@ -58,11 +58,11 @@ def delete_task(task_id):
     connection = connect_db()
     try:
         cursor = connection.cursor()
-        sql_query = f"SELECT description FROM Tasks WHERE id={task_id}"
-        cursor.execute(sql_query)
+        sql_query = f"SELECT description FROM Tasks WHERE id=%s"
+        cursor.execute(sql_query, (task_id,))
         result = cursor.fetchone()
-        sql_query = f"DELETE FROM Tasks WHERE id={task_id};"
-        cursor.execute(sql_query)
+        sql_query = f"DELETE FROM Tasks WHERE id=%s;"
+        cursor.execute(sql_query, (task_id,))
         cursor.execute(audit_query, (task_id, result[0], 'DELETE'))
         connection.commit()
         cursor.close()
@@ -128,8 +128,8 @@ def edit_task(id, update):
     try:
         connection = connect_db()
         cursor = connection.cursor()
-        getter_query = f"SELECT description FROM Tasks WHERE id={id}"
-        cursor.execute(getter_query)
+        getter_query = f"SELECT description FROM Tasks WHERE id=%s"
+        cursor.execute(getter_query, (id,))
         result = cursor.fetchone()
         cursor.execute(sql_query, (update, id))
         cursor.execute(audit_query, (id, update, result[0], 'UPDATE'))
