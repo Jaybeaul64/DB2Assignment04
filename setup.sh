@@ -14,7 +14,7 @@ for arg in "$@"; do
     fi
 
     # compiles the documentation
-    if [[ "$arg" == "--no-docs" ]]; thens
+    if [[ "$arg" == "--no-docs" ]]; then
         compile_docs=false
     fi
 
