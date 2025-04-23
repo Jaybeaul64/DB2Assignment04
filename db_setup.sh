@@ -20,7 +20,7 @@ create_db_user() {
 
     create_user_sql="
     CREATE USER IF NOT EXISTS '$new_user'@'%' IDENTIFIED BY '$new_pass';
-    GRANT SELECT, UPDATE, DELETE ON \`${database}\`.* TO '$new_user'@'%';
+    GRANT SELECT, UPDATE, DELETE, INSERT ON \`${database}\`.* TO '$new_user'@'%';
     FLUSH PRIVILEGES;
     "
 
